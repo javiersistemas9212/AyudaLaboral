@@ -1,0 +1,23 @@
+<div class="row" style="margin-top: 20px;">
+   <div class="col s12 m4 center">
+   <i class="material-icons circle" style="font-size: 50px;background-color: gray;padding: 15px;color: white;">work</i>
+   <h2>Esta zona es solamente para los patrocinadores, que ofertan oportunidades de empleo.</h2>
+   </div>
+   
+   <div class="col s12 m8">
+      <h1 class="title center">Iniciar Sesión</h1>
+      <app-login *ngIf="!islogin"></app-login>
+      <div *ngIf="islogin" class="container light-green lighten-5 green-text">
+         <div class="row center">
+            <form style="margin-top: 15px;padding-top:20px;" class="col s12">
+               <div class="row">
+                  <h1 class="title">Has iniciado sesión</h1>
+                  <i class="material-icons" style="font-size: 50px;">check</i>
+               </div>
+            </form>
+
+         </div>
+      </div>
+
+   </div>
+</div>

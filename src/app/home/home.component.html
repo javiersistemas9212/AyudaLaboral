@@ -1,0 +1,35 @@
+
+
+<div id="index-banner" class="Titulos-container">
+  <div class="row">
+          <br><br>
+          <div class="col s12 m6 center" style="padding-left: 20px;">
+            <h1 class="header left black-text"><b>Ayuda Laboral</b></h1>
+          <div class="row left">
+            <h5 class="header col s12 light">Bienvenido, en este espacio encontraras una posible ayuda para obtener un nuevo empleo con el apoyo de nuestros asociados.</h5>
+          </div>
+          <div class="row center">
+              <a [routerLink]="['/Informacion']" id="download-button" class="btn-large waves-effect waves-light black white-text">¿Como funciona?</a>
+          </div>
+          </div>
+        
+   
+      <div class="col s12 m6">  
+        <app-login *ngIf="!islogin"></app-login>
+        <div *ngIf="islogin" class="container light-green lighten-5 green-text">
+          <div class="row center">
+                <form  style="margin-top: 15px;padding-top:20px;" class="col s12">
+                  <div class="row">
+                     <h1 class="title">Has iniciado sesión</h1>   
+                     <i class="material-icons" style="font-size: 50px;">check</i>
+                  </div>  
+               </form>
+            
+          </div>
+        </div>
+
+    </div>
+  </div>  
+  </div>
+  <app-info-page></app-info-page>
+

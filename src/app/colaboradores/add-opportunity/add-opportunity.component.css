@@ -1,0 +1,16 @@
+mat-drawer-container {
+    min-height: 100vh;
+}
+.botonEditarOportunidad, #encabezadostablaOportunidad{
+    background-color:black ;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+.botonEditarOportunidad:hover{
+    font-size: 35px;
+    cursor: pointer;
+}
+#tablaOportunidad:hover{    
+    background-color: #e0e0e0 ;
+}

@@ -1,0 +1,113 @@
+<div class="row" style="padding: 20px; margin-top: 25px;">
+    <div class="switch">
+            <label style="font-size: 20px;">
+              <input   #bloquearo 
+               type="checkbox" [checked]="bloquear" (change)="bloquearOportunidad()">
+              <span class="lever"></span>
+              <span *ngIf="!bloquear" >Bloquear oportunidad</span>
+              <span *ngIf="bloquear" >Desbloquear oportunidad</span>
+            </label><br>
+          <span>Si bloqueas la oportunidad ya no la podran ver los solicitantes.</span>
+       </div>
+
+
+    <form #formDetailsopportunity='ngForm' style="margin-top:20px;" class="col s12 m8" (ngSubmit)="ActualizarOportunidad()" autocomplete="on">
+  
+        <div class="row">                
+            <mat-form-field class="col s12 m8">
+                <mat-label>Área de trabajo</mat-label>
+                <mat-icon matPrefix>business</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+               #areaTrabajo="ngModel" name="areaTrabajo"
+               [(ngModel)]="Addoportunity.areaTrabajo" required>
+               <span matSuffix>* Campo requerido.</span>      
+            </mat-form-field>
+                       
+            </div>
+
+            <div class="row">
+
+                <mat-form-field class="col s12 m8">
+                    <mat-label>Especialidad</mat-label>
+                    <mat-icon matPrefix>school</mat-icon>
+                   <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+                   #especialidad="ngModel"
+                   name="especialidad" [(ngModel)]="Addoportunity.especialidad" required>
+                   <span matSuffix>* Campo requerido.</span>      
+                </mat-form-field>
+               
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col s12 m8">
+                    <mat-label>Ciudad</mat-label>
+                    <mat-icon matPrefix>person_pin_circle</mat-icon>
+                   <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+                   #ciudad="ngModel" name="ciudad"
+                   [(ngModel)]="Addoportunity.ciudad" required>
+                 <span matSuffix>* Campo requerido.</span>      
+                </mat-form-field>
+            </div>
+
+
+            <div class="row">
+
+                <mat-form-field class="col s12 m8">
+                    <mat-label>Profesión</mat-label>
+                    <mat-icon matPrefix>work</mat-icon>
+                   <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+                   #profesion="ngModel" name="profesion"
+                   [(ngModel)]="Addoportunity.profesion" required>
+                   <span matSuffix>* Campo requerido.</span>      
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col s12 m8">
+                    <mat-label>Experiencia Laboral en Años</mat-label>
+                    <mat-icon matPrefix>trending_up</mat-icon>
+                   <input class="browser-default" type="number" matInput placeholder="Campo requerido"
+                   #experiencia="ngModel" name="experiencia"
+                   [(ngModel)]="Addoportunity.experiencia" required>
+                   <span matSuffix>Años.</span>      
+                </mat-form-field>
+        
+            </div>
+            
+            <div class="row">
+                <mat-form-field class="col s12 m8">
+                    <mat-label>Empresa</mat-label>
+                    <mat-icon matPrefix>business</mat-icon>
+                   <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+                   #empresa="ngModel" name="empresa"
+                   [(ngModel)]="Addoportunity.empresa" required>
+                   <span matSuffix>* Campo requerido.</span>      
+                </mat-form-field>        
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col s12">
+                    <mat-label>Descripción de la oferta</mat-label>
+                    <mat-icon matPrefix>comment</mat-icon>
+                    <textarea matInput  style="min-height: 200px;"
+                     #descripcion="ngModel" name="descripcion"
+                     [(ngModel)]="Addoportunity.descripcion"></textarea>
+                </mat-form-field>
+        
+            </div>
+
+    
+            <br><br>
+            <div class="row center">
+                <button type="submit" class="waves-effect waves-light btn  black white-text flow-text center"
+                    [disabled]="formDetailsopportunity.invalid">Actualizar</button>
+                
+            </div>    
+    </form>
+    <div class="col s12 m4">
+       <app-personas-inscritas [idO]="Addoportunity.id"></app-personas-inscritas>
+    </div>
+    <div class="col s12">
+        <app-recomendaciones-oportunidad [oportunidadModel]="Addoportunity"></app-recomendaciones-oportunidad>
+     </div>
+</div> 

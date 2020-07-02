@@ -1,0 +1,239 @@
+<form style="margin-top: 20px;" #formUsuario='ngForm' class="col s12" autocomplete="on">
+  <div class="container">
+
+    <div class="left center">
+   <i style="font-size: 100px;" class="material-icons">person_pin</i>
+   <h2 (click)="CerrarSesion()" style="cursor:pointer;" id="cerrarsesionperfil"><i class="material-icons green-text">lens</i> Cerrar Sesión</h2>
+  
+</div>
+
+  <div class="row center">
+   <h1 class="title"><i class="material-icons">work</i> Tus Datos</h1>
+   <a [routerLink]="['/cv']" class="waves-effect waves-light btn black white-text"><i class="material-icons right">content_paste</i>ver historial de tu CV</a>
+   <p style="padding-top:15px;" class="container">Actualiza tus datos y no te olvides de darle click al botón Actualizar información para que se guarden tus cambios.</p>
+  </div>
+ 
+  <div class="switch">
+    <label style="font-size: 20px;">
+      <input   #bloquearo 
+       type="checkbox" [checked]="bloquear" (change)="bloquearUsuario()">
+      <span class="lever"></span>
+      <span *ngIf="!bloquear" >Activar usuario</span>
+      <span *ngIf="bloquear" >Inactivar usuario (El usuario esta activado)</span>
+    </label><br>
+  <span>Si estas inactivo los patrocinadores no podran recomendar tu hoja de vida.</span>
+</div>
+<br>
+
+    <div class="row">
+     
+      <mat-form-field class="col s12 m8">
+        <mat-label>Nombre Completo</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+       <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+       #nombres="ngModel" name="nombres" [(ngModel)]="profilePersonModel.nombres" required>
+      </mat-form-field>
+
+       <div class="col s12 m4">   
+        <blockquote>
+          <span>* Campo requerido.</span>      
+        </blockquote>
+        </div>
+      </div>
+
+      <div class="row">
+     
+        <mat-form-field class="col s12 m8">
+          <mat-label>Profesión</mat-label>
+          <mat-icon matPrefix>business</mat-icon>
+         <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+         #profesion="ngModel" name="profesion" [(ngModel)]="profilePersonModel.profesion" required>
+       </mat-form-field>
+  
+         <div class="col s12 m4">   
+          <blockquote>
+            <span>* Campo requerido.</span>      
+          </blockquote>
+          </div>
+      </div>
+
+      <div class="row">
+     
+        <mat-form-field class="col s12 m8">
+          <mat-label>Correo Electronico</mat-label>
+          <mat-icon matPrefix>local_post_office</mat-icon>
+         <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+         #userName="ngModel" name="userName" [(ngModel)]="profilePersonModel.userName" required>
+        </mat-form-field>
+  
+         <div class="col s12 m4">   
+          <blockquote>
+            <span>* Campo requerido.</span>      
+          </blockquote>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m8">   
+      
+        <i class="material-icons prefix" style="color: black;margin-left: 0px;margin-right: 10px;font-size: 20px;">place</i> 
+        <mat-form-field>
+          <mat-label>Ciudad</mat-label>
+          <mat-select #ciudad="ngModel" name="ciudad" [(ngModel)]="profilePersonModel.ciudad" >
+            <mat-option  *ngFor="let ciudad of ciudades" [value]="ciudad.value">
+              {{ciudad.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="col s12 m4">   
+          <blockquote>
+            <span>* Campo requerido. <br>
+             Selecciona una ciudad.</span>      
+          </blockquote>
+          </div>
+      </div>
+  
+      <div class="row">
+     
+        <mat-form-field class="col s12 m8">
+          <mat-label>Especialización</mat-label>
+          <mat-icon matPrefix>layers</mat-icon>
+         <input class="browser-default" type="text" matInput placeholder="Campo No requerido"
+         #especializacion="ngModel" name="especializacion" [(ngModel)]="profilePersonModel.especializacion">
+        </mat-form-field>
+  
+      </div>
+
+      
+      <div class="row">
+     
+        <mat-form-field class="col s12 m8">
+          <mat-label>Área de Trabajo</mat-label>
+          <mat-icon matPrefix>business_center</mat-icon>
+         <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+         #areaTrabajo="ngModel" name="areaTrabajo" [(ngModel)]="profilePersonModel.areaTrabajo" required>
+        </mat-form-field>
+  
+         <div class="col s12 m4">   
+          <blockquote>
+            <span>* Campo requerido.</span>      
+          </blockquote>
+          </div>
+      </div>
+
+            
+      <div class="row">
+     
+        <mat-form-field class="col s12 m8">
+          <mat-label>Campo de Especialidad</mat-label>
+          <mat-icon matPrefix>build</mat-icon>
+         <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+         #campoEspecialidad="ngModel" name="campoEspecialidad" [(ngModel)]="profilePersonModel.campoEspecialidad" required>
+        </mat-form-field>
+  
+         <div class="col s12 m4">   
+          <blockquote>
+            <span>* Campo requerido.</span>      
+          </blockquote>
+          </div>
+       </div>
+
+      <div class="row">     
+    
+          <mat-form-field class="col s12 m6">
+            <mat-label>Fecha Disponibilidad</mat-label>
+            <mat-icon matPrefix>event_available</mat-icon>
+            <input class="browser-default"  type="text" matInput [matDatepicker]="picker1" placeholder="Campo requerido"
+            #fechaDisponibilidad="ngModel" name="fechaDisponibilidad" [(ngModel)]="profilePersonModel.fechaDisponibilidad" required>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+      
+        <div class="col s12 m6">   
+          <blockquote>
+            <span>Cuentanos en que fecha estaras disponible. <br>
+            El formato de la fecha debe ser dd/mm/aaaa, para mayor facilidad de click en el botón de calendario
+            de la parte inferior derecha.</span>      
+          </blockquote>
+          </div>
+      </div>
+      
+      <div class="row">     
+        <div class="input-field col s12 m6" style="border: 2px solid black;">         
+          <h3 class="right">Conocimientos</h3> 
+          <i class="material-icons prefix" style="color: black;">language</i>       
+            <input id="conocimientos" type="text" class="validate" 
+            #conocimientos name="conocimientos">
+            <label for="conocimientos"></label>
+           <button (click)="Addconocimientos(conocimientos.value)" class="waves-effect waves-light btn  black white-text flow-text center col s12" >Cargar</button>
+            <ul class="collection">
+                    <li *ngFor="let cono of Listconocimientos" 
+                    class="collection-item light-blue lighten-5 row" style="margin-bottom: 5px;">
+                    <label class="truncate centerY col s10" style="font-size: 15px;">
+                      <i class="material-icons">hdr_strong</i>
+                        {{ cono }}</label>
+                      <a (click)="BorrarConocimiento(cono)" style="cursor: pointer;" 
+                      class="right col s2"><b><i style="font-size: 30px;" class="material-icons">highlight_off</i></b></a>
+                      </li>
+            </ul>
+        </div>
+        <div class="input-field col s12 m6" style="border: 2px solid black;"> 
+          <h3 class="right">Competencias</h3>        
+          <i class="material-icons prefix" style="color: black;">school</i>       
+          <input id="competencias" type="text" class="validate" 
+          #competencias name="competencias">
+          <label for="competencias"></label>
+         <button (click)="Addcompetencias(competencias.value)" class="waves-effect waves-light btn  black white-text flow-text center col s12" >Cargar</button>
+          <ul class="collection">
+                  <li *ngFor="let com of Listcompetencias" 
+                  class="collection-item light-blue lighten-5 row" style="margin-bottom: 5px;">
+                  <label class="truncate centerY col s10" style="font-size: 15px;">
+                  <i class="material-icons">hdr_strong</i>  {{ com }}</label>
+                  <a (click)="BorrarCompetencia(com)" style="cursor: pointer;" 
+                  class="right col s2"><b><i style="font-size: 30px;" class="material-icons">highlight_off</i></b></a>
+      
+                </li>
+          </ul>
+      </div>
+      </div>
+
+        <div class="file-field input-field col s12 m8">
+          <div class="btn red">
+            <span>Adjuntar CV</span>
+            <input type="file"  accept="application/pdf" (change)="fileChangeEvent($event)" > 
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        
+          <div *ngIf="profilePersonModel.CV != null" style="margin-top: 20px;">
+            <ul class="collection">
+                <li class="collection-item avatar">
+                  <img src="../../assets/images/pdflogo.webp" alt="" class="circle red lighten-4">
+                  <span class="title">{{ profilePersonModel.CV }}</span>
+                  <p>Hoja de Vida
+                  </p>
+                  <a style="cursor: pointer;" class="secondary-content" (click)="downloadCV()"><i class="material-icons">file_download</i></a>
+                </li>
+            </ul>
+        </div>  
+        </div>
+  
+        <p>
+        <label>
+          <input (change)="terminos = !terminos" type="checkbox" />
+          <span>Autorizo que la información suministrada en este formulario sea compatida con personas con el fin de una posible vinculación laboral.</span>
+        </label>
+      </p>
+      <br><br>  
+     <div class="row center">
+      <button class="waves-effect waves-light btn  black white-text flow-text center" 
+      [disabled]="!terminos" (click)="ActualizarPersona()" >Actualizar información</button>
+    <br><br>     
+
+    
+  </div>    
+
+    </div>
+  </form>

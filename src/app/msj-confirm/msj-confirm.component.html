@@ -1,0 +1,18 @@
+<h5 mat-dialog-title >Ayuda Laboral</h5>
+<mat-dialog-content>
+  <div class="row center">
+    <div class="center">
+        <i *ngIf="data.Modelmsj.correct" class="material-icons medium green-text">check_circle</i>
+        <i *ngIf="!data.Modelmsj.correct" class="material-icons medium black-text">error</i>
+
+    </div>
+    <div class="center" style="margin-left: 20px ;">
+     <h4>{{ data.Modelmsj.msg }}</h4>
+    </div>
+
+</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+   <button class="waves-effect waves-light btn black white-text flow-text center " mat-dialog-close>Aceptar</button>
+</mat-dialog-actions>
+

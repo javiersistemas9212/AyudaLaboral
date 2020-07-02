@@ -1,0 +1,57 @@
+<div id="paginaopportunity">
+    <div class="row">
+        <div class="col s12 m6 grey lighten-2">
+           <h2 class="title">Oportunidades</h2>
+            <ul class="collection white">
+                <li *ngFor="let oport of ListaOportunidades" (click)="Detalles(oport)" class="collection-item avatar"
+                    style="border-bottom: 10px solid #e0e0e0 ;cursor: pointer;">
+                    <img src="../../assets/images/estudios.png" alt="" class="circle blue lighten-4">
+                    <span class="title">{{ oport.areaTrabajo }}</span>
+                    <p>{{ oport.especialidad }}<br>
+                        Ciudad: {{ oport.ciudad }}<br>
+                        <span>{{ oport.fecha }}</span>
+                    </p>
+                    <a class="secondary-content"><i class="material-icons">send</i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col s12 m6">
+
+            <div *ngIf="DetalleOportunidad.areaTrabajo != ''" class="container">
+                <div class="row center">
+                  <button (click)="inscribirseOportunidad()" class="waves-effect waves-light btn black white-text"><i class="material-icons">near_me</i> Estoy interesado</button>
+                </div>
+                <br><br>
+                <div class="row">
+                    <label class="browser-default"><b>Empresa:</b> {{ DetalleOportunidad.empresa}}</label>
+                </div>  
+                <div class="row">
+                    <label class="browser-default"><b>Área de trabajo:</b> {{ DetalleOportunidad.areaTrabajo}}</label>
+                </div>   
+                <div class="row">
+                    <label class="browser-default"><b>Se requiere un </b>
+                        {{ DetalleOportunidad.profesion}}</label>
+                </div>          
+                <div class="row">
+                    <label class="browser-default"><b>Con una especialidad en:</b>
+                      <br>  {{ DetalleOportunidad.especialidad}}</label>
+                </div>
+                <div class="row">
+                    <label class="browser-default"><b>Experiencia requerida:</b>
+                     <br>   {{ DetalleOportunidad.experiencia}} Años</label>
+                </div>
+                 <div class="row">
+                    <label class="browser-default"><b>En la ciudad de:</b><br>{{ DetalleOportunidad.ciudad}}</label>
+                </div>
+                <div class="row">
+                    <label class="browser-default"><b>Esta oportunidad fue creada el:</b>
+                     <br>   {{ DetalleOportunidad.fecha}}</label>
+                </div>
+                <div class="row">
+                    <label style="font-size: 15px;">{{ DetalleOportunidad.descripcion }}</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+<mat-drawer-container class="matcontainer" autosize [hasBackdrop]="true">
+    <mat-drawer #drawer class="matsidenav" mode="over">
+        <div class="center" style="margin-top: 15px;">
+              <a (click)="drawer.toggle()" class="black white-text circle" style="font-size: 30px; padding: 10px;"><i class="material-icons circle">keyboard_arrow_left</i></a>
+        </div>    
+        <div class="row">
+                <form #formopportunity='ngForm' style="margin-top:20px;" class="col s12" (ngSubmit)="CrearOportunidad()" autocomplete="on">
+                 
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">business</i>
+                            <input id="empresa" type="text" class="validate" 
+                            #empresa="ngModel" name="empresa"
+                                [(ngModel)]="Addoportunity.empresa" required>
+                            <label for="empresa">Empresa destino</label>
+                        </div>   
+                        <span>* Campo requerido.</span>                                 
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">business</i>
+                            <input id="areaTrabajo" type="text" class="validate" #areaTrabajo="ngModel" name="areaTrabajo"
+                                [(ngModel)]="Addoportunity.areaTrabajo" required>
+                            <label for="areaTrabajo">Área de trabajo</label>
+                        </div>   
+                        <span>* Campo requerido.</span>                                 
+                    </div>
+    
+                    <div class="row">
+    
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">school</i>
+                            <input id="especialidad" type="text" class="validate" #especialidad="ngModel"
+                                name="especialidad" [(ngModel)]="Addoportunity.especialidad" required>
+                            <label for="especialidad">Especialidad</label>
+                        </div>
+                        <span>* Campo requerido.</span>
+                           
+                    </div>
+    
+                    <div class="row">
+    
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">person_pin_circle</i>
+                            <input id="ciudad" type="text" class="validate" #ciudad="ngModel" name="ciudad"
+                                [(ngModel)]="Addoportunity.ciudad" required>
+                            <label for="ciudad">Ciudad</label>
+                        </div>
+                        <span>* Campo requerido.</span>
+                           
+                    </div>
+    
+    
+                    <div class="row">
+    
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">work</i>
+                            <input id="profesion" type="text" class="validate" #profesion="ngModel" name="profesion"
+                                [(ngModel)]="Addoportunity.profesion" required>
+                            <label for="profesion">Profesión</label>
+                        </div>
+                        <span>* Campo requerido.</span>
+                           
+                    </div>
+    
+                    <div class="row">
+    
+                        <div class="input-field col s10">
+                            <i class="material-icons prefix" style="color: black;">trending_up</i>
+                            <input id="experiencia" type="number" class="validate" #experiencia="ngModel" name="profesion"
+                                [(ngModel)]="Addoportunity.experiencia" required>
+                            <label for="experiencia">Experiencia Laboral en Años</label>
+                        </div>
+                        <h2>Años</h2>
+                    </div>    
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix" style="color: black;">comment</i>
+                            <textarea id="descripcion" class="materialize-textarea" 
+                            #descripcion="ngModel" name="descripcion"
+                                [(ngModel)]="Addoportunity.descripcion"></textarea>
+                            <label for="descripcion">Descripción de la oferta</label>
+                        </div>                                 
+                    </div>
+                    <br><br>
+                    <div class="row center">
+                        <button type="submit" class="waves-effect waves-light btn  black white-text flow-text center"
+                            [disabled]="formopportunity.invalid" (click)="drawer.toggle()">Guardar</button>
+                        
+                    </div>    
+            </form>
+        </div> 
+
+    </mat-drawer>
+  
+    <div class="sidenav-content">
+ 
+      <div class="row"> 
+       <a mat-button (click)="drawer.toggle()" class="btn-floating btn-large black pulse"><i class="material-icons">add</i></a>
+      </div>
+          
+      <div class="col s12" style="padding: 10px 20px;">
+         <h2 class="title">Lista de oportunidades</h2>
+        <table class="highlight responsive-table"> 
+            <thead>
+              <tr id="encabezadostablaOportunidad"> 
+                  <th></th>
+                  <th>Área</th>
+                  <th>Profesión</th>
+                  <th>Ciudad</th>
+                
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr id="tablaOportunidad" *ngFor="let oport of Listoportunity">
+                <td class="botonEditarOportunidad"><i [routerLink]="['/Colaboradores/Detalles', oport.id]" class="material-icons">edit</i>
+                </td>
+                <td>{{ oport.areaTrabajo }}</td>
+                <td>{{ oport.profesion }}</td>                
+                <td>{{ oport.ciudad }}</td>
+              </tr>
+          
+            </tbody>
+          </table>
+    </div>
+
+     
+    </div>
+  
+  </mat-drawer-container>
+  

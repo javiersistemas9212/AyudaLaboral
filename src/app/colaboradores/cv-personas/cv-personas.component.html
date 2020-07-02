@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col s12" style="padding: 10px 20px;">
+      <h2 class="title">Lista de personas inscritas.</h2>
+    <table class="highlight responsive-table"> 
+        <thead>
+          <tr id="encabezadostablaOportunidad"> 
+              <th></th>
+              <th>Nombres</th>
+              <th>Profesión</th>
+              <th>Área de Trabajo</th>              
+              <th>Ciudad</th>
+            
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr id="tablaOportunidad" *ngFor="let persona of ListaPersonas">
+            <td class="botonEditarOportunidad"><i [routerLink]="['/Colaboradores/InfoPersona', persona.id]" class="material-icons">person</i>
+            </td>
+            <td>{{ persona.nombres }}</td>
+            <td>{{ persona.profesion }}</td>                
+            <td>{{ persona.areaTrabajo }}</td>              
+            <td>{{ persona.ciudad }}</td>
+          </tr>
+      
+        </tbody>
+      </table>
+</div>
+
+</div>

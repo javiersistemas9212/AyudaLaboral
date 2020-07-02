@@ -1,0 +1,95 @@
+<div class="row" style="margin-top: 20px;padding: 10px;">
+    <div class="col s12">
+        <div class="row">
+            <div class="switch">
+                <label style="font-size: 20px;">
+                  <input   #bloquearo 
+                   type="checkbox" [checked]="bloquear" (change)="bloquearUsuario()">
+                  <span class="lever"></span>
+                  <span *ngIf="!bloquear" >Activar usuario</span>
+                  <span *ngIf="bloquear" >Inactivar usuario</span>
+                </label><br>
+              <span>Si estas inactivo los patrocinadores no podran recomendar tu hoja de vida.</span>
+            </div>
+            <br>
+            <div class="encabezadopaginacv col s12 m8">
+                <h1 style="border-bottom: 2px black double;"><i class="material-icons"
+                        style="font-size: 40px;">person</i> {{ profilePersonModel.nombres }}</h1>
+                        <h3>{{ profilePersonModel.profesion }}</h3>
+                        <h4>{{ profilePersonModel.userName }}</h4>
+            
+                    </div>
+            <div class="col s12 m4 centerY red lighten-4" style="cursor: pointer; padding-top: 10px;">
+                <h3 *ngIf="!profilePersonModel.CV">El usuario no ha cargado una hoja de vida</h3>
+                <div *ngIf="profilePersonModel.CV" (click)="downloadCV()">
+                    <img src="../../../assets/images/pdflogo.webp" style="height: 50px; width: auto;" alt="">
+                    <h3 class="right">Ver hoja de vida</h3>
+               
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12" style="border: 2px black solid;padding: 15px; margin-top: 20px;">
+            <legend class="left">Especialidad:</legend>
+            <br><br>
+            <h3><i class="material-icons prefix circle" style="color: white; background-color: black;">school</i>
+                {{ profilePersonModel.especializacion }}</h3>
+            <h3><i class="material-icons prefix circle" style="color: white; background-color: black;">school</i>
+                {{ profilePersonModel.campoEspecialidad }}</h3>
+
+        </div>
+
+        <div class="row">
+            <div class="col s12 center">
+                <h3><b>Área de Trabajo:</b> {{ profilePersonModel.areaTrabajo }}</h3>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s8">
+                <h3><b>Ciudad:</b> {{ profilePersonModel.ciudad }} <i class="material-icons prefix right"
+                        style="color: black;font-size: 35px;">person_pin_circle</i>
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s8">
+                <h4><b>Fecha Disponibilidad:</b> {{ profilePersonModel.fechaDisponibilidad | date:'fullDate' }}
+                    <i class="material-icons prefix circle right"
+                        style="color: black;font-size: 35px;">event_available</i>
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col s12 m6">
+                <span class="title">Conocimientos:</span>
+
+                <ul class="collection">
+                    <li *ngFor="let cono of Listconocimientos" class="collection-item avatar">
+                        <img src="../../assets/images/estudios.png" alt="" class="circle blue lighten-4">
+                        <span class="title">{{ cono }}</span>
+                        <p>Conocimiento
+                        </p>
+                        <a class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col s12 m6">
+                <span class="title">Competencias:</span>
+
+                <ul class="collection">
+                    <li *ngFor="let cono of Listcompetencias" class="collection-item avatar">
+                        <img src="../../assets/images/estudios.png" alt="" class="circle blue lighten-4">
+                        <span class="title">{{ cono }}</span>
+                        <p>Competencia
+                        </p>
+                        <a class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

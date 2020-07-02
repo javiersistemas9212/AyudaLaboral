@@ -1,0 +1,9 @@
+#paginacv{
+    min-height: 100vh;
+    margin-top: 10px;
+   padding:20px;
+   
+}
+.encabezadopaginacv{
+    line-height: 5px;
+}

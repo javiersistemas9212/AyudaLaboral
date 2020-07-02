@@ -1,0 +1,17 @@
+nav{
+    background-color: black;
+    color: white;
+}
+#mobile-menu li a{
+    color:white !important;
+}
+.brand-logo{
+   padding: 10px 25px;
+   background-color: white;
+   color: black;
+   border-radius: 50%;
+   margin-left: 15px;
+   border: 5px solid black;
+   z-index: 99;
+
+}

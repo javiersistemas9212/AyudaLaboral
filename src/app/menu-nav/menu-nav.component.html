@@ -1,0 +1,50 @@
+  <nav>
+    <div class="nav-wrapper">
+      <a [routerLink]="['/']" class="brand-logo circle">AL</a>
+      <a data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a>
+     
+      <ul class="right hide-on-med-and-down">
+        <li><a [routerLink]="['/Colaboradores']">Zona Patrocinadores</a></li>       
+        <li *ngIf="islogin && typelog == 'usu'"><a [routerLink]="['/Oportunidades']">Oportunidades</a></li>       
+        <li *ngIf="islogin && typelog == 'usu'"><a [routerLink]="['/Perfil']">Perfil</a></li>       
+        <li><a [routerLink]="['/Informacion']" >Información</a></li>     
+        <li>
+          <button [routerLink]="['/']" mat-icon-button aria-label="Inicio">
+              <mat-icon>home</mat-icon>
+            </button>
+        </li>
+        <li>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu Usuarios">
+                <mat-icon>person_pin</mat-icon>
+            </button>
+              <mat-menu #menu="matMenu">
+                <div *ngIf="islogin">
+                  <div mat-menu-item class="light-green lighten-2" 
+                  style="min-height: 150px;padding: 20px;">
+                   <p class="center"> <i class="material-icons circle green lighten-4" style="padding: 20px;">person</i>{{ usuario }}</p>
+                </div>
+                <button (click)="CerrarSesion()" [routerLink]="['/']" mat-menu-item>
+                  <mat-icon>perm_identity</mat-icon>
+                  <a>Cerrar Sesión</a>
+                </button>
+                </div>
+
+                <div *ngIf="!islogin" style="padding: 20px;" class="center" >
+                  <h2>Inicia sesión para comenzar</h2>
+                </div>
+              
+              </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  
+  <ul class="sidenav black" id="mobile-menu">
+    <li><a [routerLink]="['/Colaboradores']">Zona Patrocinadores</a></li>     
+    <li><a *ngIf="islogin && typelog == 'usu'" [routerLink]="['/Oportunidades']">Oportunidades</a></li>       
+    <li><a *ngIf="islogin && typelog == 'usu'" [routerLink]="['/Perfil']">Perfil</a></li>
+    <li><a [routerLink]="['/Informacion']" >Información</a></li>
+    <li><a [routerLink]="['/']">Inicio</a></li>
+    <li *ngIf="islogin"><a (click)="CerrarSesion()" [routerLink]="['/']">Cerrar Sesión</a></li>   
+  </ul>

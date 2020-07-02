@@ -1,0 +1,149 @@
+<form style="margin-top: 20px;" #formColaborador='ngForm' class="col s12" autocomplete="on">
+    <div class="container">
+<div class="row">
+        <div class="left center col s12 m6">
+            <i style="font-size: 100px;" class="material-icons">person_pin</i>
+            <h2 (click)="CerrarSesion()" style="cursor:pointer;"><i class="material-icons green-text">lens</i> Cerrar
+                Sesión
+            </h2>
+
+        </div>
+        <div class="center col s12 m6">
+            <h1 class="title"><i class="material-icons">work</i> Información de Contacto</h1>
+            <p style="padding-top:15px;">Actualiza tus datos y no te olvides darle click al botón
+                Actualizar
+                información para que se guarden tus cambios.</p>
+        </div>
+</div>
+
+    
+
+        <div class="row">
+
+            <mat-form-field class="col s12 m8">
+                <mat-label>Nombre Completo</mat-label>
+                <mat-icon matPrefix>person</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+               #nombreContacto="ngModel" name="nombreContacto"
+               [(ngModel)]="profileColaborador.nombreContacto" required>
+            </mat-form-field>
+
+            <div class="col s12 m4">
+                <blockquote>
+                    <span>* Campo requerido.</span>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <mat-form-field class="col s12 m8">
+                <mat-label>Empresa</mat-label>
+                <mat-icon matPrefix>business</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+               #empresa="ngModel" name="empresa"
+               [(ngModel)]="profileColaborador.empresa" required>
+            </mat-form-field>
+
+            <div class="col s12 m4">
+                <blockquote>
+                    <span>* Campo requerido.</span>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <mat-form-field class="col s12 m8">
+                <mat-label>Cargo en la empresa</mat-label>
+                <mat-icon matPrefix>business</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+               #cargo="ngModel" name="cargo"
+               [(ngModel)]="profileColaborador.cargo" required>
+            </mat-form-field>
+
+            <div class="col s12 m4">
+                <blockquote>
+                    <span>* Campo requerido.</span>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <mat-form-field class="col s12 m8">
+                <mat-label>Correo Electronico</mat-label>
+                <mat-icon matPrefix>local_post_office</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+               #userName="ngModel"
+               name="userName" [(ngModel)]="profileColaborador.userName" required>
+            </mat-form-field>
+
+            <div class="col s12 m4">
+                <blockquote>
+                    <span>* Campo requerido.</span>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m8">
+
+                <i class="material-icons prefix"
+                    style="color: black;margin-left: 0px;margin-right: 10px;font-size: 20px;">place</i>
+                <mat-form-field>
+                    <mat-label>Ciudad</mat-label>
+                    <mat-select #ciudad="ngModel" name="ciudad" [(ngModel)]="profileColaborador.ciudad">
+                        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.value">
+                            {{ciudad.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col s12 m4">
+                <blockquote>
+                    <span>* Campo requerido. <br>
+                        Selecciona una ciudad.</span>
+                </blockquote>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <mat-form-field class="col s12 m8">
+                <mat-label>Celular de Contacto</mat-label>
+                <mat-icon matPrefix>phone_android</mat-icon>
+               <input class="browser-default" type="text" matInput placeholder="Campo requerido"
+                #celular="ngModel" name="celular"
+                [(ngModel)]="profileColaborador.celular">
+            </mat-form-field>
+
+        </div>
+
+        <br><br>
+        <div class="row center">
+            <button class="waves-effect waves-light btn  black white-text flow-text center"
+                [disabled]="formColaborador.invalid" (click)="ActualizarColaborador()">Actualizar información</button>
+            <br><br>
+
+
+        </div>
+
+    </div>
+</form> 
+
+<!-- 
+<form [formGroup]="myForm">
+    <mat-form-field >
+        <mat-label>Nombre completo</mat-label>
+        <input matInput placeholder="Nombre Completo" formControlName="nombreContacto">
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Empresa</mat-label>
+        <input matInput placeholder="Empresa" formControlName="empresa">
+    </mat-form-field>
+    
+</form>
+-->

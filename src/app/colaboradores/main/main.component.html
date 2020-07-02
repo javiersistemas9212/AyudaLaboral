@@ -1,0 +1,28 @@
+
+<mat-sidenav-container class="colaborador-container">
+    <mat-sidenav #sidenav mode="side" opened class="colaborador-sidenav"
+                 [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top"
+                 [fixedBottomGap]="options.value.bottom">
+
+                 <ul class="menuColaboradores">
+                     <li><a [routerLink]="['/Colaboradores/']" class="truncate"><i class="material-icons">home</i> Inicio</a>                           
+                     </li>
+                     <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/Colaborador']" class="truncate"><i class="material-icons">person</i> Datos de Contacto</a>
+                     </li>
+                     <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/CrearOportunidad']" class="truncate"><i class="material-icons">business</i> Tus ofertas</a>
+                     </li>
+                     <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/ListaPersonas']" class="truncate"><i class="material-icons">people</i> CV Inscritos</a>
+                     </li>
+                     <br>
+                     <li *ngIf="islogin && typelog == 'col'" (click)="CerrarSesion()"><a [routerLink]="['/Colaboradores/']" class="truncate"><i class="material-icons">cancel</i> Cerrar Sesión</a>
+                     </li>
+                 </ul>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+       <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="colaborador-footer">  <p>2020 © Ayuda Laboral, Todos los derechos reservados</p>
+  </mat-toolbar>
