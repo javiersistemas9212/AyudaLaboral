@@ -48,7 +48,7 @@ export class MainComponent implements OnInit {
 
   CerrarSesion(){
     this._userservice.logOut();   
-    this._router.navigateByUrl('/Colaborador/');
+    this._router.navigateByUrl('/');
 
   }
 }
