@@ -1,0 +1,7 @@
+TRUNCATE TABLE `tbloportunidades` ;
+TRUNCATE TABLE `tblusuarios` ;
+TRUNCATE TABLE `tblrecomendaciones` ;
+TRUNCATE TABLE `tbloportunidaxusuario` ;
+TRUNCATE TABLE `tbllogin` ;
+TRUNCATE TABLE `tblcolaboradores` ;
+TRUNCATE TABLE `tblactividades` ;

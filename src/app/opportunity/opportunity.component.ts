@@ -77,7 +77,7 @@ export class OpportunityComponent implements OnInit {
     id:0,
     oportunidadid: this.DetalleOportunidad.id,
     usuarioid: this.profilePersonModel.id,
-    fecha:fechaActual.getFullYear() + "/" + fechaActual.getMonth() + "/" + fechaActual.getDate()
+    fecha:fechaActual.getFullYear() + "/" + (fechaActual.getMonth() + 1)  + "/" + fechaActual.getDate()
   };
 
   this._subscription2 = this._userservice.inscribirseOportunidad(this.inscripcion, this.usuario)

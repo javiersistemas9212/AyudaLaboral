@@ -138,7 +138,7 @@ cargarRecomendacion(idpersona:string){
     empresa: this.oportunidadModelActual.empresa,
     afectado:personafiltrada[0].afectado,
     ciudad:this.oportunidadModelActual.ciudad,
-    fecha:fechaActual.getFullYear() + "/" + fechaActual.getMonth() + "/" + fechaActual.getDate()
+    fecha:fechaActual.getFullYear() + "/" + (fechaActual.getMonth() + 1)  + "/" + fechaActual.getDate()
   }
   this._subscription2 = this._colaboradorService.AgregarRecomendacion(Nuevarecomendacion)
   .subscribe((res:any) => {
