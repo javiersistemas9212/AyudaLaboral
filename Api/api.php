@@ -607,7 +607,6 @@ $app->get("/ConsultarRecomendaciones/:id", function($id) use($db, $app) {
 });
 
 
-
 $app->get("/ConsultarActividadesXUsuario/:user", function($user) use($db, $app) {
 	$query = $db->query("SELECT * FROM tblactividades WHERE afectado = '{$user}' order by fecha DESC;");
 	$allusers = array();
@@ -629,6 +628,169 @@ $app->get("/ConsultarActividadesXUsuario/:user", function($user) use($db, $app) 
    
 });
 
+//REPORTES
+
+$app->get("/ConsultarRecomendacionesReportes/:user", function($user) use($db, $app) {
+
+	$queryusu = $db->query("SELECT adm FROM tbllogin WHERE userName = '{$user}';");
+	$userc = $queryusu->fetch_assoc();
+	
+	if ($userc['adm'] == 1){
+
+		$query = $db->query("SELECT r.oportunidadid, u.id as Id_Colaborador, u.nombres As Nombres_Colaborador, 
+		a.mensaje As Mensaje, r.fecha As Fecha_Registro 
+		FROM tblrecomendaciones r 
+		inner join tblusuarios u 
+		on r.usuarioid = u.id 
+		inner join tblactividades a 
+		on r.actividadid = a.id 		
+		order by r.id DESC;");
+		$allusers = array();
+	
+		while ($fila = $query->fetch_assoc()) {
+			$allusers[] = $fila;       
+		}
+	  
+	   if ($query->num_rows >= 1) {
+		$result = array("status" => "success",
+			"data" => $allusers);
+	
+		  }else {
+			$result = array(
+				"status" => "error",
+				"message" => "No se encontraron datos");
+		}
+	
+	}else{
+		$result = array(
+			"status" => "error",
+			"message" => "No eres Administrador");
+
+     }
+	
+			 echo json_encode($result);
+	   
+	});
+
+	$app->get("/ConsultarActividadesReportes/:user", function($user) use($db, $app) {
+
+		$queryusu = $db->query("SELECT adm FROM tbllogin WHERE userName = '{$user}';");
+		$userc = $queryusu->fetch_assoc();
+		
+		if ($userc['adm'] == 1){
+	
+			$query = $db->query("SELECT u.id as IdUsuario, a.afectado As Correo_usuario, 
+			a.mensaje As Mensaje_actividad, a.fecha As Fecha_Registro 
+			FROM tblactividades a 
+			inner join tbllogin l 
+			on a.afectado = l.userName 		
+			inner join tblusuarios u 
+			on l.id = u.loginId 
+			order by a.id DESC;");
+			$allusers = array();
+		
+			while ($fila = $query->fetch_assoc()) {
+				$allusers[] = $fila;       
+			}
+		  
+		   if ($query->num_rows >= 1) {
+			$result = array("status" => "success",
+				"data" => $allusers);
+		
+			  }else {
+				$result = array(
+					"status" => "error",
+					"message" => "No se encontraron datos");
+			}
+		
+		}else{
+			$result = array(
+				"status" => "error",
+				"message" => "No eres Administrador");
+	
+		 }
+		
+				 echo json_encode($result);
+		   
+		});
+	
+
+		
+	$app->get("/ChartColaborador/:user", function($user) use($db, $app) {
+
+		$queryusu = $db->query("SELECT adm FROM tbllogin WHERE userName = '{$user}';");
+		$userc = $queryusu->fetch_assoc();
+		
+		if ($userc['adm'] == 1){
+	
+			$query = $db->query("SELECT COUNT(id) as cant, activo FROM `tblusuarios` GROUP BY activo;");
+			$allusers = array();
+		
+			while ($fila = $query->fetch_assoc()) {
+				$allusers[] = $fila;       
+			}
+		  
+		   if ($query->num_rows >= 1) {
+			$result = array("status" => "success",
+				"data" => $allusers);
+		
+			  }else {
+				$result = array(
+					"status" => "error",
+					"message" => "No se encontraron datos");
+			}
+		
+		}else{
+			$result = array(
+				"status" => "error",
+				"message" => "No eres Administrador");
+	
+		 }
+		
+				 echo json_encode($result);
+		   
+		});
+	
+	$app->post("/ChartActividades/:user", function($user) use($db, $app) {
+
+		$json = $app->request->post("json");
+		$data = json_decode($json, true);
+	
+			$queryusu = $db->query("SELECT adm FROM tbllogin WHERE userName = '{$user}';");
+			$userc = $queryusu->fetch_assoc();
+			
+			if ($userc['adm'] == 1){
+		
+				$query = $db->query("SELECT COUNT(id) as cant, fecha FROM `tblactividades` 
+				Where fecha between '{$data["fechaf"]}' And '{$data["fechai"]}' GROUP BY fecha;");
+				$allusers = array();
+			
+				while ($fila = $query->fetch_assoc()) {
+					$allusers[] = $fila;       
+				}
+			  
+			   if ($query->num_rows >= 1) {
+				$result = array("status" => "success",
+					"data" => $allusers);
+			
+				  }else {
+					$result = array(
+						"status" => "error",
+						"message" => "No se encontraron datos");
+				}
+			
+			}else{
+				$result = array(
+					"status" => "error",
+					"message" => "No eres Administrador");
+		
+			 }
+			
+					 echo json_encode($result);
+			   
+			});
+		
+	
 
 $app->post("/InteresOportunidad/:usern", function($usern) use($db, $app) {
 	$json = $app->request->post("json");
@@ -727,6 +889,7 @@ $app->get("/download-file/:id", function($id) use($db, $app) {
     echo 'false';
 }
 });
+
 
 $app->run();
 
