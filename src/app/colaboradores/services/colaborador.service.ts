@@ -117,5 +117,13 @@ AgregarRecomendacion(Nrecomendacion: recomendacion){
 
 }
 
+ConsultarRecomendacionesReporte(user: string){    
+  return this._http.get(this.rutaApi + "ConsultarRecomendacionesReportes/" + user, httpOptions);
+}
+
+ConsultarColaboradorReporte(user: string){    
+  return this._http.get(this.rutaApi + "ConsultarActividadesReportes/" + user, httpOptions);
+}
+
 
 }

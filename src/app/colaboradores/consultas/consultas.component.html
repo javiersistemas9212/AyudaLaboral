@@ -1,0 +1,29 @@
+<h2 class="center title" style="padding-top: 20px;">Zona Administradores</h2>
+
+<div class="row">
+    <div class="col s12 m6" style="padding-left: 10px;">
+      <h3 class="center title" style="padding-top: 20px;">Resportes Cargados</h3>
+  
+      <div class="row center">
+        <a style="border-radius: 10%;" (click)="exportExcel('oportunidades')"
+          class="waves-effect waves-light btn-large green">
+          <i class="material-icons right">file_download</i>
+          Reporte de Oportunidades
+          <img class="left" width="50" height="50" src="../../../assets/images/excel.png">
+        </a>
+
+      </div>
+      <div class="row center">
+        <a style="border-radius: 10%;" (click)="exportExcel('colaboradores')"
+          class="waves-effect waves-light btn-large green">
+          <i class="material-icons right">file_download</i>
+          Reporte de Colaboradores
+          <img class="left" width="50" height="50" src="../../../assets/images/excel.png">
+        </a>
+
+      </div>
+    </div>
+    <div class="col s12 m6">   
+    <app-chart></app-chart>
+    </div>
+  </div>

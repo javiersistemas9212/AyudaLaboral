@@ -19,6 +19,8 @@ import { DetallesPersonaResolve } from './resolvers/resolveDetallesPerson';
 import { CvPersonasComponent } from './cv-personas/cv-personas.component';
 import { DetallesListaPersonaResolve } from './resolvers/resolveDetallesListPerson';
 import { RecomendacionesOportunidadComponent } from './recomendaciones-oportunidad/recomendaciones-oportunidad.component';
+import { ConsultasComponent } from './consultas/consultas.component';
+import { ChartComponent } from './consultas/chart/chart.component';
 
 
 const routes: Routes = [
@@ -28,7 +30,8 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'Colaborador', component: InfoColaboradorComponent, canActivate:[AuthGuard] },
-      { path: 'CrearOportunidad', component: AddOpportunityComponent, canActivate:[AuthGuard]},
+      { path: 'CrearOportunidad', component: AddOpportunityComponent, canActivate:[AuthGuard]}, 
+      { path: 'Consultas', component: ConsultasComponent, canActivate:[AuthGuard]},
       { path: 'Detalles/:id', component: DetallesOportunidadComponent,
       resolve: {
         DetallesO: DetallesResolve 
@@ -60,7 +63,9 @@ const routes: Routes = [
     PersonasInscritasComponent,
     PersonasOportunidadesComponent,
     CvPersonasComponent,
-    RecomendacionesOportunidadComponent
+    RecomendacionesOportunidadComponent,
+    ConsultasComponent,
+    ChartComponent
 
   ],
   providers: [],
