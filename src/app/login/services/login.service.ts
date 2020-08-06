@@ -45,6 +45,14 @@ export class LoginService {
       params, httpOptions);
   }
 
+  registroPatrocinador(registro: register) {
+
+    let json = JSON.stringify(registro);
+    let params = "json=" + json;
+    return this._http.post(this.rutaApi + "RegistroPatrocinadores/" + localStorage.getItem('user'),
+      params, httpOptions);
+  }
+
   isLoggedIn(): Observable<boolean> {
     return this.logger.asObservable();
   }

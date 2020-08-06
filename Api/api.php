@@ -4,7 +4,8 @@
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, DELETE');
 header("Access-Control-Allow-Headers: X-Requested-With");
-header("Access-Control-Allow-Origin: http://localhost:4200");
+#header("Access-Control-Allow-Origin: https://nubenostra.com");
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json; charset=utf-8');
 header('P3P: CP="IDC DSP COR CURa ADMa OUR IND PHY ONL COM STA"');
 
@@ -13,7 +14,7 @@ require_once 'vendor/autoload.php';
 $app = new \Slim\Slim();
 $app->contentType('application/json; charset=utf-8'); 
 
-$db = new mysqli("127.0.0.1", "root", "Asd123456789*", "ayudalaboraldb");
+$db = new mysqli("localhost", "ApiUser", "reunieron-calzones-madurez-fauna", "ayudalaboraldb");
 $db->query("SET NAMES 'utf8'");
 
 
@@ -48,58 +49,148 @@ $app->post("/Registro", function() use($db, $app) {
 			"status" => "error",
 			"message" => "El correo electronico ya existe en el sistema.");
 		} else {
-			$query = "INSERT INTO tbllogin (id,userName,password,type) VALUES(NULL,"
-			. "'{$data["UserNameR"]}',"
-			. "'{$data["PasswordR"]}',"
-			. "'{$data["type"]}' "
-			. ")";
-	
-	$insert = $db->query($query);	
 
-	if ($insert) {
+			if ($data["type"] == "col"){
+				$result = array(
+					"status" => "error",
+					"message" => "No se pueden registrar nuevos patrocinadores, contáctese con un administrador.");
+			
+			}else{
+				$query = "INSERT INTO tbllogin (id,userName,password,type) VALUES(NULL,"
+				. "'{$data["UserNameR"]}',"
+				. "'{$data["PasswordR"]}',"
+				. "'{$data["type"]}' "
+				. ")";
+		
+		$insert = $db->query($query);	
 
-		$queryusu = $db->query("SELECT id FROM tbllogin WHERE userName = '{$data["UserNameR"]}' and password = '{$data["PasswordR"]}' ;");
-		$user = $queryusu->fetch_assoc();
-	
-	
-		if ($data["type"] == "col"){
-            $query1 = "INSERT INTO tblcolaboradores (id,nombreContacto,loginId) VALUES(NULL,"
-			. "'{$data["Nombres"]}', "
-			. "{$user['id']}"
-			. ")";
+		if ($insert) {
 
-		$insert1 = $db->query($query1);
+			$queryusu = $db->query("SELECT id FROM tbllogin WHERE userName = '{$data["UserNameR"]}' and password = '{$data["PasswordR"]}' ;");
+			$user = $queryusu->fetch_assoc();
+		
+		
+			if ($data["type"] == "col"){
+				$query1 = "INSERT INTO tblcolaboradores (id,nombreContacto,loginId) VALUES(NULL,"
+				. "'{$data["Nombres"]}', "
+				. "{$user['id']}"
+				. ")";
 
-		if ($insert1) {
-			$saved = true;
-		}
+			$insert1 = $db->query($query1);
 
-		}else{
-
-			$query2 = "INSERT INTO tblusuarios (id,nombres,loginId,activo) VALUES(NULL,"
-			. "'{$data["Nombres"]}', "
-			. "{$user['id']},1"
-			. ")";
-		$insert2 = $db->query($query2);
-
-			if ($insert2) {
+			if ($insert1) {
 				$saved = true;
 			}
+
+			}else{
+
+				$query2 = "INSERT INTO tblusuarios (id,nombres,loginId,activo) VALUES(NULL,"
+				. "'{$data["Nombres"]}', "
+				. "{$user['id']},1"
+				. ")";
+			$insert2 = $db->query($query2);
+
+				if ($insert2) {
+					$saved = true;
+				}
+			}
+
+		} else {
+			$result = array("status" => "error", "message" => "Error al crear el login en el servidor");
 		}
-
-	} else {
-		$result = array("status" => "error", "message" => "Error al crear el login en el servidor");
+			if ($saved) {
+				$result = array("status" => "success",
+					"message" => $data["UserNameR"]);
+			} else {
+				$result = array("status" => "error", "message" => "Error al crear usuario en el servidor");
+			}
 	}
+      
 
-	if ($saved) {
-		$result = array("status" => "success",
-			"message" => $data["UserNameR"]);
-	} else {
-		$result = array("status" => "error", "message" => "Error al crear usuario en el servidor");
-	}
 }	
 	echo json_encode($result);
 });
+
+
+$app->post("/RegistroPatrocinadores/:user", function($user) use($db, $app) {
+
+	$json = $app->request->post("json");
+	$data = json_decode($json, true);
+    $saved = false;
+	
+	$queryusu = $db->query("SELECT adm FROM tbllogin WHERE userName = '{$user}';");
+	$userc = $queryusu->fetch_assoc();
+	
+	if ($userc['adm'] == 1){
+
+		$querylog = $db->query("SELECT * FROM tbllogin WHERE userName = '{$data["UserNameR"]}';");
+		$log = $querylog->fetch_assoc();
+	
+		if ($querylog->num_rows >= 1) {
+			 $result = array(
+				"status" => "error",
+				"message" => "El correo electronico ya existe en el sistema.");
+			} else {
+	
+					$query = "INSERT INTO tbllogin (id,userName,password,type) VALUES(NULL,"
+					. "'{$data["UserNameR"]}',"
+					. "'{$data["PasswordR"]}',"
+					. "'{$data["type"]}' "
+					. ")";
+			
+			$insert = $db->query($query);	
+	
+			if ($insert) {
+	
+				$queryusu = $db->query("SELECT id FROM tbllogin WHERE userName = '{$data["UserNameR"]}' and password = '{$data["PasswordR"]}' ;");
+				$user = $queryusu->fetch_assoc();
+			
+			
+				if ($data["type"] == "col"){
+					$query1 = "INSERT INTO tblcolaboradores (id,nombreContacto,loginId) VALUES(NULL,"
+					. "'{$data["Nombres"]}', "
+					. "{$user['id']}"
+					. ")";
+	
+				$insert1 = $db->query($query1);
+	
+				if ($insert1) {
+					$saved = true;
+				}
+	
+				}else{
+	
+					$query2 = "INSERT INTO tblusuarios (id,nombres,loginId,activo) VALUES(NULL,"
+					. "'{$data["Nombres"]}', "
+					. "{$user['id']},1"
+					. ")";
+				$insert2 = $db->query($query2);
+	
+					if ($insert2) {
+						$saved = true;
+					}
+				}
+	
+			} else {
+				$result = array("status" => "error", "message" => "Error al crear el login en el servidor");
+			}
+				if ($saved) {
+					$result = array("status" => "success",
+						"message" => $data["UserNameR"]);
+				} else {
+					$result = array("status" => "error", "message" => "Error al crear usuario en el servidor");
+				}
+		
+		  }	
+		  
+	}else{
+		$result = array("status" => "error", "message" => "No eres Administrador");		
+	}
+
+	echo json_encode($result);
+});
+
+
 
 $app->get("/ConsultarUsuario/:user", function($user) use($db, $app) {
 	$query = $db->query("SELECT u.id,u.nombres,l.userName,'' as password,u.fechaDisponibilidad,u.ciudad, u.areaTrabajo, u.campoEspecialidad,u.conocimientos,u.profesion,u.especializacion,u.competencias,u.comentarios,u.CV, u.activo FROM tblusuarios u inner join tbllogin l on u.loginId = l.id Where l.userName = '{$user}' ORDER BY id ASC;");

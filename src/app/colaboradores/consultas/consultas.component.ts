@@ -8,6 +8,9 @@ import { Subscription } from 'rxjs';
 import { ConsultasService } from '../services/consultas.service';
 import { element } from 'protractor';
 import { persona } from '../models/persona';
+import { NgForm } from '@angular/forms';
+import { register } from 'src/app/login/models/register';
+import { LoginService } from 'src/app/login/services/login.service';
 
 @Component({
   selector: 'app-consultas',
@@ -20,18 +23,28 @@ export class ConsultasComponent implements OnInit {
   dataSource: opportunity[];
   dataSource2: persona[];
  
+  mensajeresponse: string;
   Sendmsj: msjresponse; 
   private _subscription2: Subscription;
   usuario: string;
   RecomendacionesxOportunidad:any;
   ActividadesxColaborador:any;
+  registerModel:register;
+  typelog: string;
 
   constructor(public DialogConfirm: MatDialog,
      private _colaboradorService: ColaboradorService,
-     private exportar:ConsultasService) { }
+     private exportar:ConsultasService,
+     private _userservice: LoginService) { }
 
   ngOnInit(): void {
     this.usuario = localStorage.getItem('user');  
+    this.registerModel = {      Nombres: '', UserNameR: '', PasswordR: '', ConfirmPassword: '', type: ''   };
+    this.mensajeresponse = "Ingrese los datos correctos";
+    this.typelog = this._userservice.typeusu;
+    this.registerModel.type = this.typelog;
+    this.Sendmsj = {correct: false, msg:'' };
+  
     this.listaOportunidades();
     this.listaRecomendacionesxOportunidad();
     this.listaActividadesxColaborador();
@@ -132,7 +145,48 @@ export class ConsultasComponent implements OnInit {
       this.exportar.exporttoExcel(NombreConsulta,this.dataSource2,nombrehoja1,this.ActividadesxColaborador,nombrehoja2);
  
     }
-    
-
    }
+
+   onRegister(form: NgForm){
+
+
+    if (this.registerModel.ConfirmPassword.length == 0){
+        this.mensajeresponse = "El campo confirmar contraseña es requerido.";
+        return;     
+    }
+    if (this.registerModel.PasswordR.length == 0){
+      this.mensajeresponse = "El campo contraseña es requerido.";
+      return;     
+   }
+   if (this.registerModel.UserNameR.length == 0){
+     this.mensajeresponse = "El campo correo es requerido.";
+     return;     
+  }
+  if (this.registerModel.Nombres.length == 0){
+     this.mensajeresponse = "El campo nombres es requerido.";
+     return;     
+  }
+  if (this.registerModel.PasswordR.length < 6){
+     this.mensajeresponse = "La contraseña debe tener una longitud minima de 6 caracteres.";
+     return;     
+  }
+
+    this._subscription2 = this._userservice.registroPatrocinador(form.value)
+    .subscribe((res: any) => {
+      
+      if(res.body.status == "success"){
+        this.Sendmsj.correct = true;
+        this.Sendmsj.msg = "Registro correcto";
+        this.DialogConfirm.open(MsjConfirmComponent,{data:{Modelmsj : this.Sendmsj}});
+        
+       }else{
+        this.mensajeresponse = res.body.message;
+      }      
+       },err => {
+      if (err.status == 400)
+        this.mensajeresponse ='Error en el registro.';
+      else
+      this.mensajeresponse = err;
+    });
+  }
 }

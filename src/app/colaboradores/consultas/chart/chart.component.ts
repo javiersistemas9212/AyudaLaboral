@@ -32,14 +32,19 @@ export class ChartComponent implements OnInit {
 
   dateRange(){     
   
-     let startDate = new Date();
-     let endDate = new Date().setDate(startDate.getDate() - 6);   
+   //  let startDate = new Date();
+   //  let endDate = new Date().setDate(startDate.getDate() - 6);   
     
+   let startDate = new Date();
+   let endDate = new Date().setDate(startDate.getDate() - 6);   
+   let cantFech=0;
+
     var current = startDate;
    
-    while (new Date(this.organizarFecha(new Date(endDate))) <= new Date(this.organizarFecha(current))) {
+    while (cantFech <= 6) {
      this.retVal.push(this.organizarFecha(new Date(current)));
      current = new Date(new Date().setDate(current.getDate() - 1));
+     cantFech ++;
     }
   
     this._consultasService.ChartActividades(this.usuario, this.organizarFecha(startDate), this.organizarFecha(new Date(endDate)))

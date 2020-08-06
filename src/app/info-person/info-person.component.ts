@@ -126,20 +126,21 @@ export class InfoPersonComponent implements OnInit {
   }
 
   ActualizarPersona() {
+
     this.mensaje = '';
-    if (this.profilePersonModel.ciudad == '') {
+    if (this.profilePersonModel.ciudad == "") {
       this.mensaje = '  El campo ciudad es obligatorio.  ';
     }
-    if (this.profilePersonModel.fechaDisponibilidad == '') {
+    if (this.profilePersonModel.fechaDisponibilidad == null || this.profilePersonModel.fechaDisponibilidad =='0000-00-00' ) {
       this.mensaje = '  El campo Fecha Disponibilidad es obligatorio.  ';
     }
-    if (this.profilePersonModel.nombres == '') {
+    if (this.profilePersonModel.nombres == "") {
       this.mensaje = '  El campo Nombres es obligatorio.  ';
     }
-    if (this.profilePersonModel.profesion == '') {
+    if (this.profilePersonModel.profesion == "") {
       this.mensaje = '  El campo Profesion es obligatorio.  ';
     }
-    if (this.profilePersonModel.userName == '') {
+    if (this.profilePersonModel.userName == "") {
       this.mensaje = '  El campo Correo Electronico es obligatorio.  ';
     }
     if (this.Listconocimientos.length == 0) {
@@ -165,7 +166,12 @@ export class InfoPersonComponent implements OnInit {
 
     this.profilePersonModel.conocimientos = this.sConocimientos;
     this.profilePersonModel.competencias = this.sCompetencias;
-
+  
+    let fechaSinFormato = this.profilePersonModel.fechaDisponibilidad;
+    let fechaActual = new Date(this.profilePersonModel.fechaDisponibilidad);
+  
+    this.profilePersonModel.fechaDisponibilidad = fechaActual.getFullYear() + "/" + (fechaActual.getMonth() + 1)  + "/" + fechaActual.getDate()
+   
     this._subscription2 =  this._userservice.ActualizarUsuario(this.profilePersonModel)
       .subscribe((res: any) => {
      
@@ -173,12 +179,14 @@ export class InfoPersonComponent implements OnInit {
           this.Sendmsj.correct = true;
           this.Sendmsj.msg = "Datos Actualizados.";
           this.DialogConfirm.open(MsjConfirmComponent, { data: { Modelmsj: this.Sendmsj } });
-
+     
         } else {
           this.Sendmsj.correct = false;
           this.Sendmsj.msg = "Error al actualizar los datos en el servidor.";
           this.DialogConfirm.open(MsjConfirmComponent, { data: { Modelmsj: this.Sendmsj } });
         }
+             this.profilePersonModel.fechaDisponibilidad = fechaSinFormato;
+   
       });
   }
 

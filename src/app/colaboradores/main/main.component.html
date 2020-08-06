@@ -13,7 +13,7 @@
                      </li>
                      <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/ListaPersonas']" class="truncate"><i class="material-icons">people</i> CV Inscritos</a>
                      </li>
-                     <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/Consultas']" class="truncate"><i class="material-icons">graphic_eq</i> Consultas Admin</a>
+                     <li *ngIf="islogin && typelog == 'col'"><a [routerLink]="['/Colaboradores/Consultas']" class="truncate"><i class="material-icons">graphic_eq</i> Zona Admin</a>
                      </li>
                      <br>
                      <li *ngIf="islogin && typelog == 'col'" (click)="CerrarSesion()"><a [routerLink]="['/Colaboradores/']" class="truncate"><i class="material-icons">cancel</i> Cerrar Sesión</a>

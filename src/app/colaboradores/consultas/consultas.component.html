@@ -22,6 +22,53 @@
         </a>
 
       </div>
+
+      <form style="margin-top: 15px;border-radius: 10%;" #formRegister='ngForm' class="col s12 m10 blue lighten-5 z-depth-4" autocomplete="on" (submit)="onRegister(formRegister)">
+        <h3 class="center blue darken-4 white-text">Registro de patrocinadores</h3>
+               
+        <div class="row">
+            <div class="input-field col s12">
+              <i *ngIf="Nombres.valid" class="material-icons prefix" style="color: green;">check_circle</i>
+              <i *ngIf="!Nombres.valid" class="material-icons prefix" style="color: black;">person</i>
+              <input id="Nombres" type="text" class="validate" #Nombres="ngModel" name="Nombres" [(ngModel)]="registerModel.Nombres" required>
+              <label for="Nombres">Nombres y Apellidos</label>
+               </div>
+       
+               <div class="input-field col s12">
+              <i *ngIf="UserNameR.valid" class="material-icons prefix" style="color: green;">check_circle</i>
+              <i *ngIf="!UserNameR.valid" class="material-icons prefix" style="color: black;">perm_identity</i>
+              <input id="UserNameR" type="email" class="validate" #UserNameR="ngModel" name="UserNameR" [(ngModel)]="registerModel.UserNameR" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+              <label for="UserNameR">Correo</label>
+               </div>
+       
+               <div class="input-field col s12">
+              <i *ngIf="PasswordR.valid" class="material-icons prefix" style="color: green;">check_circle</i>
+              <i *ngIf="!PasswordR.valid" class="material-icons prefix" style="color: black;">lock</i>
+              <input id="PasswordR" type="password" class="validate" 
+              #PasswordR="ngModel" name="PasswordR" [(ngModel)]="registerModel.PasswordR" required>
+              <label for="PasswordR">Contraseña</label>
+              <span>Longitud minima 6 caracteres</span>
+               </div>
+       
+               <div class="input-field col s12">
+              <i *ngIf="ConfirmPassword.valid && ConfirmPassword.value == PasswordR.value" class="material-icons prefix" style="color: green;">check_circle</i>
+              <i *ngIf="!ConfirmPassword.valid || ConfirmPassword.value != PasswordR.value" class="material-icons prefix" style="color: black;">lock_outline</i>
+              <input id="ConfirmPassword" type="password" class="validate" #ConfirmPassword="ngModel" name="ConfirmPassword" [(ngModel)]="registerModel.ConfirmPassword" required>
+              <label for="ConfirmPassword">Confirmar Contraseña</label>
+               </div>
+          </div>
+                <input id="type" type="hidden" class="validate" #type="ngModel" name="type" [(ngModel)]="registerModel.type">
+        
+          <div class="row center">
+              <label>{{ mensajeresponse }}</label>
+          </div>
+
+        <div class="row center">
+            <button type="submit" class="waves-effect waves-light btn  black white-text flow-text center" 
+            [disabled]="formRegister.invalid || ConfirmPassword.value != PasswordR.value">Registrarse</button>
+       
+        </div>
+      </form>
     </div>
     <div class="col s12 m6">   
     <app-chart></app-chart>
