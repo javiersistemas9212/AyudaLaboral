@@ -53,7 +53,7 @@ export class InfoPersonComponent implements OnInit {
   ngOnInit(): void {
     this.profilePersonModel = {
       id: 0, areaTrabajo: '', campoEspecialidad: '', ciudad: '',
-      comentarios: '', competencias: '', conocimientos: '', especializacion: '', fechaDisponibilidad: ''
+      comentarios: '', competencias: '', conocimientos: '', especializacion: '', fechaDisponibilidad: null
       , nombres: '', password: '', profesion: '', userName: '', CV: 'null',activo:0
     };
     this.Listconocimientos = [];
@@ -106,8 +106,12 @@ export class InfoPersonComponent implements OnInit {
 
         if (res.body.status == "success") {
           this.profilePersonModel = res.body.data[0];
-
-          if (this.profilePersonModel.conocimientos != null) {
+  
+      let fechaFor:string;
+     fechaFor = this.TransformarFecha(new Date(this.profilePersonModel.fechaDisponibilidad).toISOString());
+     this.profilePersonModel.fechaDisponibilidad = new Date(fechaFor);
+     
+       if (this.profilePersonModel.conocimientos != null) {
             this.Listconocimientos = this.profilePersonModel.conocimientos.split(';');
             this.Listconocimientos.splice(this.Listconocimientos.indexOf(""), 1);
           }
@@ -125,13 +129,20 @@ export class InfoPersonComponent implements OnInit {
       });
   }
 
+  TransformarFecha(fecha: string){
+    let mes:number =  +fecha.slice(5,7);
+    let dia:number =  +fecha.slice(8,10);
+    
+     return mes + '/' + dia + '/' + fecha.slice(0,4);
+  }
+
   ActualizarPersona() {
 
     this.mensaje = '';
     if (this.profilePersonModel.ciudad == "") {
       this.mensaje = '  El campo ciudad es obligatorio.  ';
     }
-    if (this.profilePersonModel.fechaDisponibilidad == null || this.profilePersonModel.fechaDisponibilidad =='0000-00-00' ) {
+    if (this.profilePersonModel.fechaDisponibilidad == null ) {
       this.mensaje = '  El campo Fecha Disponibilidad es obligatorio.  ';
     }
     if (this.profilePersonModel.nombres == "") {
@@ -169,9 +180,9 @@ export class InfoPersonComponent implements OnInit {
   
     let fechaSinFormato = this.profilePersonModel.fechaDisponibilidad;
     let fechaActual = new Date(this.profilePersonModel.fechaDisponibilidad);
-  
-    this.profilePersonModel.fechaDisponibilidad = fechaActual.getFullYear() + "/" + (fechaActual.getMonth() + 1)  + "/" + fechaActual.getDate()
-   
+    
+    this.profilePersonModel.fechaDisponibilidad = new Date(fechaActual.getFullYear() + '/' + (fechaActual.getMonth() + 1)  + '/' + fechaActual.getDate());
+     
     this._subscription2 =  this._userservice.ActualizarUsuario(this.profilePersonModel)
       .subscribe((res: any) => {
      

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  rutaApi: "http://localhost:8080/Api/Api.php/"
+  rutaApi: "http://amigosayudan.online/Api/api.php/"
 
 };
 

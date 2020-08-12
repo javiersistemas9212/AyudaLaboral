@@ -22,7 +22,7 @@ export class DetallesCvComponent implements OnInit {
 
   ngOnInit(): void {
     this.profilePersonModel = {id: 0,areaTrabajo: '',campoEspecialidad: '',ciudad: '',
-    comentarios: '',competencias: '', conocimientos: '', especializacion:'',fechaDisponibilidad: ''
+    comentarios: '',competencias: '', conocimientos: '', especializacion:'',fechaDisponibilidad: null
     ,nombres: '', password: '',profesion: '',userName: '', CV:'',activo:0};
     this.listaActividades =[];
     this.usuario = localStorage.getItem('user');

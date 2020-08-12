@@ -5,7 +5,7 @@ export interface profilePerson {
     nombres: string,
     userName: string,        
     password: string,
-    fechaDisponibilidad: string,
+    fechaDisponibilidad: Date,
     ciudad:string,
     areaTrabajo:string,
     campoEspecialidad:string,
